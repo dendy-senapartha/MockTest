@@ -1,9 +1,10 @@
 package org.mockExample;
 
+import org.junit.jupiter.api.Test;
 import org.mockExample.messangerExample.*;
 
 import static org.mockito.Mockito.*;
-import org.junit.Test;
+
 /**
  * Project: MockTest
  * Package: org.mockExample

@@ -1,8 +1,10 @@
 package org.mockExample;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Project: MockTest
  * Package: org.mockExample
@@ -18,26 +20,25 @@ public class CarMockTest {
     private Car myCar = mock(Car.class);
 
     @Test
-    public void testIfMyCarIsCar(){
+    public void testIfMyCarIsCar() {
         assertTrue(myCar instanceof Car);
     }
 
     @Test
-    public void testDefaultValueOfMyCar(){
-        assertFalse("my car need fuel", myCar.needsFuel());
-        assertEquals("my car engine temperature should be 0.0",
-                0.0, myCar.getEngineTemperature(), 1e-3);
+    public void testDefaultValueOfMyCar() {
+        assertFalse(myCar.needsFuel(), "my car need fuel");
+        assertEquals(0.0, myCar.getEngineTemperature(), 1e-3, "my car engine temperature should be 0.0");
     }
 
     @Test
-    public void testGiveValueOnMockObject(){
-        assertFalse("my car dont need fuel!", myCar.needsFuel());
+    public void testGiveValueOnMockObject() {
+        assertFalse(myCar.needsFuel(), "my car dont need fuel!");
         when(myCar.needsFuel()).thenReturn(true);
-        assertTrue("my car need fuel!" , myCar.needsFuel());
+        assertTrue(myCar.needsFuel(), "my car need fuel!");
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testMyCarHaveException(){
+    @Test
+    public void testMyCarHaveException() {
         //mengkondisikan bila method needsfuel
         // dipanggil akan memberikan eksepsi
         when(myCar.needsFuel())
@@ -46,7 +47,7 @@ public class CarMockTest {
     }
 
     @Test
-    public void verifyThatMockMethodBeingCalled(){
+    public void verifyThatMockMethodBeingCalled() {
         myCar.driveTo("Sweet Campus UKDW");
         myCar.needsFuel();
         //method any() akan mengabaikan value
