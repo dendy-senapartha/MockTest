@@ -12,18 +12,18 @@ import static org.mockito.Mockito.*;
  * hint : gunakan method static any() untuk melakukan stub test
  */
 public class UserServiceImplTest {
-    SecurityService seSer = mock(SecurityService.class);
+    SecurityService securityService = mock(SecurityService.class);
     User user = mock(User.class);
     UserDAO userDao = mock(UserDAO.class);
-    final String MSG = "Terverifikasi...";
-
+    final String NEW_PASSWORD = "passwordBaru";
 
     @Test
     public void verifyCheckUpdatePassword()  throws Exception{
-        UserServiceImpl sut = new UserServiceImpl(userDao, seSer);
-        when(user.getPassword()).thenReturn(MSG);
+        UserServiceImpl sut = new UserServiceImpl(userDao, securityService);
+        when(user.getPassword()).thenReturn(NEW_PASSWORD);
+        when(securityService.md5(user.getPassword())).thenReturn(NEW_PASSWORD);
         sut.assignPassword(user);
-        verify(user).setPassword(any());
+        verify(user).setPassword(NEW_PASSWORD);
         verify(userDao).updateUser(user);
     }
 }

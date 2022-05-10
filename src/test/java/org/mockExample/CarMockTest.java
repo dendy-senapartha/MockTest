@@ -26,8 +26,11 @@ public class CarMockTest {
 
     @Test
     public void testDefaultValueOfMyCar() {
+        System.out.println(myCar.needsFuel());
         assertFalse(myCar.needsFuel(), "my car need fuel");
-        assertEquals(0.0, myCar.getEngineTemperature(), 1e-3, "my car engine temperature should be 0.0");
+        assertEquals(0.0, myCar.getEngineTemperature(), 1e-3,
+                "my car engine temperature should be 0.0");
+
     }
 
     @Test
@@ -45,6 +48,27 @@ public class CarMockTest {
                 .thenThrow(new RuntimeException());
         myCar.needsFuel();
     }
+
+    @Test
+    public void testVerification() {
+        myCar.driveTo("Sweet Campus UKDW");
+        myCar.needsFuel();
+        verify(myCar).driveTo("Sweet Campus UKDW");
+        verify(myCar).needsFuel();
+    }
+
+    @Test
+    public void testVerificationFailure() {
+        myCar.needsFuel();
+        verify(myCar).getEngineTemperature();
+    }
+
+    @Test
+    public void testVerificationFailureArguments() {
+        myCar.driveTo("Sweet Campus UKDW");
+        verify(myCar).driveTo("Studio XXI - Nonton DR.Strange 2");
+    }
+
 
     @Test
     public void verifyThatMockMethodBeingCalled() {
